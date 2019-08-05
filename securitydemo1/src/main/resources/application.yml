@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+#  security:
+#    user:
+#      name: user
+#      password: 123456
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: "123456"
+    url: jdbc:mysql://localhost:3306/db_security?serverTimezone=GMT%2B8&amp&useSSL=false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: debug
+    org.springframework.security: debug
+    org.springframework.security.oauth2: INFO
+    org.springframework.boot.aotuconfigure: INFO
+    com.ianw.security.securitydemo.config.SecurityConfig: DEBUG
+
