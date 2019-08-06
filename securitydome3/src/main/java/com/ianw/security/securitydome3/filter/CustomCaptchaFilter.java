@@ -29,6 +29,7 @@ public class CustomCaptchaFilter extends OncePerRequestFilter {
         /*日志打印*/
         logger.info("CustomFilter,servletRequest={},servletResponse={}", request.getParameter("captcha"), response);
 
+        /*对其他方法进行放行*/
         if (!"/mylogin".equals(request.getRequestURI())) {
             filterChain.doFilter(request, response);
         } else if ("/mylogin".equals(request.getRequestURI()) && request.getMethod().equals("GET")) {

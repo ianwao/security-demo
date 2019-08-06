@@ -27,21 +27,29 @@ public class HelloController {
 
     @GetMapping("/user")
     public String demo2(){
+        logger.info("进入/user接口");
+        logger.info("离开/user接口");
         return "return user";
     }
 
     @GetMapping("/admin")
     public String demo3(){
+        logger.info("进入/admin接口");
+        logger.info("离开/admin接口");
         return "return admin";
     }
 
     @GetMapping("/aa")
     public String demo4(){
+        logger.info("进入/aa接口");
+        logger.info("离开/aa接口");
         return "return admin";
     }
 
     @GetMapping("/bb")
     public String demo5(){
+        logger.info("进入/bb接口");
+        logger.info("离开/bb接口");
         return "return admin";
     }
 }

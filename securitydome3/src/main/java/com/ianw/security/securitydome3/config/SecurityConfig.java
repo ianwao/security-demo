@@ -79,14 +79,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/mylogin").permitAll()
                 .successForwardUrl("/success")
-                .successHandler((httpServletRequest, httpServletResponse, authentication) -> {
+                /*.successHandler((httpServletRequest, httpServletResponse, authentication) -> {
                     httpServletResponse.setContentType("application/json;charset=UTF-8");
                     httpServletResponse.getWriter().write("{\"error\":\"0\",\"message\":\"欢迎登陆\"}"); })
                 .failureHandler((httpServletRequest, httpServletResponse, e) -> {
                     httpServletResponse.setContentType("application/json;charset=UTF-8");
                     httpServletResponse.setStatus(401);
                     httpServletResponse.getWriter().write("{'error':'0','message':'"+e.getMessage()+" '}");
-                });
+                })*/;
        // http.sessionManagement().maximumSessions(2);
          http.csrf().disable();
         http.addFilterBefore(customCaptchaFilter, UsernamePasswordAuthenticationFilter.class);
