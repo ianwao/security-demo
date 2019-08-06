@@ -43,13 +43,16 @@ public class CustomUserDetailService implements UserDetailsService {
         if(userDomain == null) {
             throw new UsernameNotFoundException("not found");
         }
-        //定义权限列表.
+        //定义权限列表
         List<GrantedAuthority> authorities = new ArrayList<>();
-        //用户可以访问的资源名称（或者说用户所拥有的权限)注意：必须"ROLE_"开头
+        //用户可以访问的资源名称（或者说用户所拥有的权限)  注意：必须"ROLE_"开头
+
         for(Role role:userDomain.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         User userDetails = new User(userDomain.getUsername(),userDomain.getPassword(), authorities);
         return userDetails;
     }
+
+
 }

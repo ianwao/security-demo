@@ -19,5 +19,19 @@ INSERT INTO `user_domain` VALUES ('3', '$2a$10$MEQ6x.gEaZfmPTfvp5I/T.ALR3LW7qgf5
 --给user 配置role
 INSERT INTO `user_role`(uid, rid) VALUES ('1','1');
 INSERT INTO `user_role`(uid, rid) VALUES ('2','2');
-INSERT INTO `user_role`(uid, rid) VALUES ('2','3');
+INSERT INTO `user_role`(uid, rid) VALUES ('3','2');
+
+--初始化所有接口
+INSERT INTO `permission`(pid, url) VALUES ('1','/user');
+INSERT INTO `permission`(pid, url) VALUES ('2','/admin');
+INSERT INTO `permission`(pid, url) VALUES ('3','/aa');
+INSERT INTO `permission`(pid, url) VALUES ('4','/bb');
+
+--动态授权
+INSERT INTO `role_permission`(pid, rid) VALUES ('1','1');
+INSERT INTO `role_permission`(pid, rid) VALUES ('2','1');
+INSERT INTO `role_permission`(pid, rid) VALUES ('3','1');
+INSERT INTO `role_permission`(pid, rid) VALUES ('4','1');
+INSERT INTO `role_permission`(pid, rid) VALUES ('1','2');
+INSERT INTO `role_permission`(pid, rid) VALUES ('3','2');
 

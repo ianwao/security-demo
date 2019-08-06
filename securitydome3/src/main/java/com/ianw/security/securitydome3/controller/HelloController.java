@@ -29,4 +29,14 @@ public class HelloController {
     public String demo3(){
         return "return admin";
     }
+
+    @GetMapping("/aa")
+    public String demo4(){
+        return "return admin";
+    }
+
+    @GetMapping("/bb")
+    public String demo5(){
+        return "return admin";
+    }
 }

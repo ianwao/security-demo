@@ -9,7 +9,11 @@ package com.ianw.security.securitydome3.config;/**
  */
 
 
+import com.google.code.kaptcha.Producer;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
 import com.ianw.security.securitydome3.extend.CustomUserDetailService;
+import com.ianw.security.securitydome3.filter.CustomCaptchaFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @program: securitydemo1
@@ -59,16 +66,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    CustomCaptchaFilter customCaptchaFilter;
+
     /*配置security简单的配置*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         Log.debug("my first custom WebSecurityConfig Class");
         http.authorizeRequests()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/user").hasAnyRole("USER","ADMIN")
-                .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().access("@customUserDetailService.canAccess")
-                .anyRequest().authenticated()
+                .antMatchers("/error","/captcha.img").permitAll()
+                .anyRequest().access("@customAuthService.canAccess(request,authentication)")
                 .and()
                 .formLogin().loginPage("/mylogin").permitAll()
                 .successForwardUrl("/success")
@@ -80,8 +87,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     httpServletResponse.setStatus(401);
                     httpServletResponse.getWriter().write("{'error':'0','message':'"+e.getMessage()+" '}");
                 });
+       // http.sessionManagement().maximumSessions(2);
          http.csrf().disable();
+        http.addFilterBefore(customCaptchaFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    @Bean
+    public Producer captcha() { // 配置图形验证码的基本参数
+        Properties properties = new Properties();
+        // 图片长度
+        properties.setProperty("kaptcha.image.width", "150");
+        // 图片宽度
+        properties.setProperty("kaptcha.image.height", "50");
+        // 字符集
+        properties.setProperty("kaptcha.textproducer.char.string", "0123456789");
+        // 字符长度
+        properties.setProperty("kaptcha.textproducer.char.length", "4");
+        Config config = new Config(properties);
 
-        //.and().httpBasic();
+        // 使用默认的图形验证码实现，当然也可以自定义实现
+        DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
+        defaultKaptcha.setConfig(config);
+        return defaultKaptcha;
     }
 }
