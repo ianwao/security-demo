@@ -26,6 +26,7 @@ INSERT INTO `permission`(pid, url) VALUES ('1','/user');
 INSERT INTO `permission`(pid, url) VALUES ('2','/admin');
 INSERT INTO `permission`(pid, url) VALUES ('3','/aa');
 INSERT INTO `permission`(pid, url) VALUES ('4','/bb');
+INSERT INTO `permission`(pid, url) VALUES ('5','/');
 
 --动态授权
 INSERT INTO `role_permission`(pid, rid) VALUES ('1','1');
@@ -34,4 +35,6 @@ INSERT INTO `role_permission`(pid, rid) VALUES ('3','1');
 INSERT INTO `role_permission`(pid, rid) VALUES ('4','1');
 INSERT INTO `role_permission`(pid, rid) VALUES ('1','2');
 INSERT INTO `role_permission`(pid, rid) VALUES ('3','2');
+INSERT INTO `role_permission`(pid, rid) VALUES ('5','1');
+INSERT INTO `role_permission`(pid, rid) VALUES ('5','2');
 

@@ -8,6 +8,8 @@ package com.ianw.security.securitydome3.controller;/**
  * @since JDK 1.8
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +24,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class WebController {
 
+    private final static Logger logger = LoggerFactory.getLogger(WebController.class);
 
     @PostMapping("/success")
     @ResponseBody
     public String demo1(){
         return "this is my first secueity demo";
     }
+
     @GetMapping("/mylogin")
     public String demo2(){
         return "mylogin";
+    }
+
+    @GetMapping("/")
+    public String demo3(){
+        return "index";
     }
 }

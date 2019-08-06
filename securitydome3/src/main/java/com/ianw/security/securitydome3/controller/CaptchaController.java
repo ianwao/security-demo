@@ -9,6 +9,8 @@ package com.ianw.security.securitydome3.controller;/**
  */
 
 import com.google.code.kaptcha.Producer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +33,12 @@ import java.io.IOException;
 @Controller
 public class CaptchaController {
 
+    private final static Logger logger = LoggerFactory.getLogger(CaptchaController.class);
+
     @Autowired
     Producer captchaProducer;
+
+    private static final String CAPTCHA_SESSION_KEY="captcha";
 
     @RequestMapping(value = "/captcha.img",method = RequestMethod.GET)
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -43,7 +49,7 @@ public class CaptchaController {
         String capText = captchaProducer.createText();
 
         // 将验证码文本设置到 session
-        request.getSession().setAttribute("captcha", capText);
+        request.getSession().setAttribute(CAPTCHA_SESSION_KEY, capText);
 
         // 创建验证码图片
         BufferedImage bi = captchaProducer.createImage(capText);
