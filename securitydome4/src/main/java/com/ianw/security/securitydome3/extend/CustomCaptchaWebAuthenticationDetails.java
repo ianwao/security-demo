@@ -41,9 +41,11 @@ public class CustomCaptchaWebAuthenticationDetails extends WebAuthenticationDeta
                 this.imageCodeIsRight = true;
             }
         }
+
     }
     public boolean getImageCodeIsRight() {
         return this.imageCodeIsRight;
     }
+
 
 }

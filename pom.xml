@@ -23,6 +23,7 @@
         <module>securitydemo1</module>
         <module>securitydemo2</module>
         <module>securitydome3</module>
+        <module>securitydome4</module>
     </modules>
 
     <build>

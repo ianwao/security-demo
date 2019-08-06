@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @since JDK 1.8
  */
 
-
+@Component
 //public class CustomAuthenticationProvider implements AuthenticationProvider {
 //public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
@@ -32,17 +32,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     }
 
     @Override
-    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken)
-            throws AuthenticationException {
-
-        //实现图形验证码的校验逻辑
-        CustomCaptchaWebAuthenticationDetails details =
-                (CustomCaptchaWebAuthenticationDetails) usernamePasswordAuthenticationToken.getDetails();
-
-        // 发现验证码不正确，就立刻抛出相应异常信息
-        if (!details.getImageCodeIsRight()) {
-            throw new VerificationCodeException();
-        }
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
         // 调用父类方法完成密码验证
         super.additionalAuthenticationChecks(userDetails,
