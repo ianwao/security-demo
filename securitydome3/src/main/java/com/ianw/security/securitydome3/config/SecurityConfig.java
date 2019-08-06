@@ -12,6 +12,7 @@ package com.ianw.security.securitydome3.config;/**
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import com.ianw.security.securitydome3.extend.CustomAuthenticationProvider;
 import com.ianw.security.securitydome3.extend.CustomUserDetailService;
 import com.ianw.security.securitydome3.filter.CustomCaptchaFilter;
 import org.slf4j.Logger;
@@ -26,7 +27,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -41,6 +41,7 @@ import java.util.Properties;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final static Logger Log = LoggerFactory.getLogger(SecurityConfig.class);
+   // private final static String
 
     /*注入数据源*/
     @Autowired
@@ -51,7 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder()); }
+       auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
+       auth.authenticationProvider(new CustomAuthenticationProvider(userDetailsService(),passwordEncoder()));
+    }
 
     /*配置*/
     @Override
@@ -91,6 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          http.csrf().disable();
         http.addFilterBefore(customCaptchaFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
     @Bean
     public Producer captcha() { // 配置图形验证码的基本参数
         Properties properties = new Properties();

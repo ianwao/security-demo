@@ -15,7 +15,9 @@ import java.io.IOException;
 
 @Component
 public class CustomCaptchaFilter extends OncePerRequestFilter {
+
     private final static Logger logger = LoggerFactory.getLogger(CustomCaptchaFilter.class);
+
     private AuthenticationFailureHandler authenticationFailureHandler =
             (httpServletRequest, httpServletResponse, e) -> {
                 //httpServletResponse.sendRedirect("/mylogin");

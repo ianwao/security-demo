@@ -1,4 +1,4 @@
-package com.ianw.security.securitydome3.config;/**
+package com.ianw.security.securitydome3.extend;/**
  * ClassName: CustomAuthService <br/>
  * Description: <br/>
  * date: 2019/8/5 14:19<br/>
