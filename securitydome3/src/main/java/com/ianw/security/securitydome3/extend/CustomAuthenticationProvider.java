@@ -47,7 +47,6 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
         // 调用父类方法完成密码验证
         super.additionalAuthenticationChecks(userDetails,
                 usernamePasswordAuthenticationToken);
-
     }
 
 }
