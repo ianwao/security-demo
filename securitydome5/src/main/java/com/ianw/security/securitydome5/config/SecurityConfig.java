@@ -48,8 +48,7 @@ import java.util.Properties;
  * @create: 2019-08-01 11:10
  */
 
-@EnableWebSecurity
-@Configuration
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final static Logger Log = LoggerFactory.getLogger(SecurityConfig.class);
     public static final String CAPTCHA_SESSION_KEY = "captcha";

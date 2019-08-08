@@ -27,5 +27,6 @@ logging:
     org.springframework.security.oauth2: INFO
     org.springframework.boot.aotuconfigure: INFO
     com.ianw.security.securitydemo.config.SecurityConfig: DEBUG
+    com.ianw.security.securitydemo5.config.SecurityConfig: DEBUG
 
 

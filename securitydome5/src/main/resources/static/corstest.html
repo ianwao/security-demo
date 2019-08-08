@@ -5,13 +5,37 @@
     <title>跨域测试</title>
 </head>
 <body>
-<button id="button" >测试跨域请求</button>
+<button id="button" >测试跨域请求 GET请求</button>
+<button id="button2" >测试跨域请求 POST请求</button>
 </body>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
     var url = "http://localhost:8081/user";
-    $("button").click(function(){
+    $("#button2").click(function(){
+        $.ajax({
+            url:url,
+            type: "POST",
+            data:{
+                userName:"aaa",
+                sex:"man",
+                age:"20"
+            },
+            //dataType:"json",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success:function(result){
+                debugger
+                alert(result);
+            },
+            error:function (err) {
+                alert(err);
+            }
+        });
+    });
+    $("#button").click(function(){
         $.ajax({
             url:url,
             type: "GET",
